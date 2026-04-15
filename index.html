@@ -1,0 +1,1024 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramneek Suri, CPA — Technical Accounting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D0D0F;
+    --bg-elevated: #161618;
+    --bg-card: #1C1C1F;
+    --bg-card-hover: #222225;
+    --fg: #F0EFE6;
+    --fg-secondary: #B0AFa6;
+    --fg-tertiary: #6E6E6E;
+    --accent: #D97757;
+    --accent-soft: rgba(217,119,87,0.12);
+    --accent-glow: rgba(217,119,87,0.06);
+    --accent-hover: #E8906E;
+    --beige: #D4A574;
+    --beige-soft: rgba(212,165,116,0.10);
+    --border: #2A2A2D;
+    --border-light: #1F1F22;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --max-width: 720px;
+    --max-width-wide: 1040px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans); font-size: 16px; line-height: 1.65;
+    color: var(--fg); background: var(--bg);
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: rgba(217,119,87,0.35); }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,13,15,0.82);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--max-width-wide); margin: 0 auto; padding: 0 32px;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name {
+    font-family: var(--serif); font-weight: 600; font-size: 18px;
+    color: var(--fg); text-decoration: none; letter-spacing: -0.3px;
+  }
+  .nav-links { display: flex; gap: 20px; align-items: center; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; color: var(--fg-secondary);
+    text-decoration: none; transition: color 0.2s; letter-spacing: 0.01em;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    font-size: 13px !important; font-weight: 600 !important;
+    color: var(--bg) !important; background: var(--accent);
+    padding: 7px 18px; border-radius: 6px; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent-hover) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: var(--max-width-wide); margin: 0 auto;
+    padding: 100px 32px 80px;
+    border-bottom: 1px solid var(--border);
+    min-height: 70vh; display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.06em; margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 700; line-height: 1.18; color: var(--fg);
+    letter-spacing: -0.02em; margin-bottom: 28px; max-width: 760px;
+  }
+  .hero h1 .accent-word { color: var(--accent); }
+  .hero-sub {
+    font-size: 17px; line-height: 1.75; color: var(--fg-secondary);
+    max-width: 620px; margin-bottom: 44px;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 20px;
+    font-size: 14px; color: var(--fg-tertiary);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta svg {
+    width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 1.8;
+  }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal-line {
+    overflow: hidden;
+  }
+  .reveal-line > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-line.visible > span {
+    transform: translateY(0);
+  }
+
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  .stagger-children > * {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .stagger-children.visible > * { opacity: 1; transform: translateY(0); }
+  .stagger-children.visible > *:nth-child(1) { transition-delay: 0.0s; }
+  .stagger-children.visible > *:nth-child(2) { transition-delay: 0.08s; }
+  .stagger-children.visible > *:nth-child(3) { transition-delay: 0.16s; }
+  .stagger-children.visible > *:nth-child(4) { transition-delay: 0.24s; }
+  .stagger-children.visible > *:nth-child(5) { transition-delay: 0.32s; }
+  .stagger-children.visible > *:nth-child(6) { transition-delay: 0.40s; }
+  .stagger-children.visible > *:nth-child(7) { transition-delay: 0.48s; }
+  .stagger-children.visible > *:nth-child(8) { transition-delay: 0.56s; }
+
+  /* ── SECTION ── */
+  section {
+    max-width: var(--max-width-wide); margin: 0 auto; padding: 0 32px;
+  }
+  .section-header {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 36px; padding-top: 72px;
+  }
+  .section-number {
+    font-family: var(--mono); font-size: 13px; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.04em;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: 28px; font-weight: 600;
+    color: var(--fg); letter-spacing: -0.02em;
+  }
+  .section-divider {
+    max-width: var(--max-width-wide); margin: 0 auto; padding: 0 32px;
+  }
+  .section-divider hr { border: none; border-top: 1px solid var(--border); }
+
+  /* ── ABOUT / PHILOSOPHY ── */
+  .about-content {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    padding-bottom: 56px; align-items: start;
+  }
+  .about-quote {
+    font-family: var(--serif); font-size: 22px; font-weight: 600;
+    line-height: 1.45; color: var(--fg);
+    border-left: 3px solid var(--accent); padding-left: 24px;
+  }
+  .about-text {
+    font-size: 15px; line-height: 1.75; color: var(--fg-secondary);
+  }
+  .about-text p + p { margin-top: 16px; }
+
+  /* ── HIGHLIGHT CARDS ── */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px; padding-bottom: 56px;
+  }
+  .highlight-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px;
+    transition: border-color 0.3s, background 0.3s; cursor: default;
+  }
+  .highlight-card:hover {
+    border-color: var(--accent); background: var(--bg-card-hover);
+  }
+  .highlight-number {
+    font-family: var(--serif); font-size: 30px; font-weight: 700;
+    color: var(--accent); line-height: 1; margin-bottom: 10px;
+  }
+  .highlight-card h3 {
+    font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 6px;
+  }
+  .highlight-card p {
+    font-size: 13px; line-height: 1.6; color: var(--fg-secondary);
+  }
+
+  /* ── CAREER TIMELINE ── */
+  .timeline { position: relative; padding-bottom: 48px; }
+  .timeline-company { margin-bottom: 40px; }
+  .company-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+  }
+  .company-name {
+    font-size: 20px; font-weight: 700; color: var(--fg); font-family: var(--serif);
+  }
+  .company-dates { font-family: var(--mono); font-size: 13px; color: var(--fg-tertiary); }
+  .company-location { font-size: 14px; color: var(--accent); margin-bottom: 24px; }
+
+  .role-item {
+    border: 1px solid var(--border); border-radius: 10px;
+    margin-bottom: 12px; overflow: hidden; transition: border-color 0.3s;
+  }
+  .role-item:hover { border-color: rgba(217,119,87,0.3); }
+  .role-item.active { border-color: var(--accent); }
+
+  .role-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 24px; cursor: pointer; background: var(--bg-card);
+    transition: background 0.2s; user-select: none;
+  }
+  .role-header:hover { background: var(--bg-card-hover); }
+  .role-item.active .role-header { background: var(--bg-card-hover); }
+
+  .role-left { display: flex; align-items: center; gap: 12px; }
+  .role-badge {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 3px 10px; border-radius: 4px; white-space: nowrap;
+  }
+  .role-title { font-size: 15px; font-weight: 600; color: var(--fg); }
+  .role-right { display: flex; align-items: center; gap: 12px; }
+  .role-dates-label { font-family: var(--mono); font-size: 12px; color: var(--fg-tertiary); }
+  .role-chevron {
+    width: 18px; height: 18px; stroke: var(--fg-tertiary); fill: none;
+    stroke-width: 2; transition: transform 0.3s;
+  }
+  .role-item.active .role-chevron { transform: rotate(180deg); }
+
+  .role-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .role-item.active .role-body { max-height: 2000px; }
+
+  .role-content { padding: 0 24px 24px; border-top: 1px solid var(--border); }
+  .role-content ul { list-style: none; padding: 0; margin-top: 16px; }
+  .role-content li {
+    font-size: 14px; line-height: 1.65; color: var(--fg-secondary);
+    padding: 5px 0 5px 20px; position: relative;
+  }
+  .role-content li::before {
+    content: ""; position: absolute; left: 2px; top: 13px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); opacity: 0.5;
+  }
+
+  .callout-box {
+    background: var(--accent-glow); border: 1px solid rgba(217,119,87,0.15);
+    border-radius: 8px; padding: 16px 20px; margin-top: 16px;
+  }
+  .callout-box .callout-label {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .callout-box p { font-size: 13px; line-height: 1.6; color: var(--fg-secondary); }
+
+  /* ── AI SECTION ── */
+  .ai-tools-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px; margin-bottom: 32px;
+  }
+  .ai-tool-chip {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px; text-align: center;
+    transition: border-color 0.3s, transform 0.2s, background 0.3s; cursor: pointer;
+  }
+  .ai-tool-chip:hover {
+    border-color: var(--accent); transform: translateY(-2px); background: var(--bg-card-hover);
+  }
+  .ai-tool-chip.active { border-color: var(--accent); background: var(--accent-soft); }
+  .ai-tool-name { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+  .ai-tool-type {
+    font-family: var(--mono); font-size: 10px; color: var(--fg-tertiary);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .ai-detail-panel {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 28px; min-height: 120px; margin-bottom: 32px;
+    transition: border-color 0.3s;
+  }
+  .ai-detail-panel.has-content { border-color: rgba(217,119,87,0.2); }
+  .ai-detail-title { font-size: 16px; font-weight: 600; color: var(--fg); margin-bottom: 8px; }
+  .ai-detail-text { font-size: 14px; line-height: 1.65; color: var(--fg-secondary); }
+  .ai-detail-placeholder { font-size: 14px; color: var(--fg-tertiary); font-style: italic; }
+
+  .workflows-header { font-size: 16px; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+  .workflow-cards {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; padding-bottom: 48px;
+  }
+  .workflow-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px; transition: border-color 0.3s;
+  }
+  .workflow-card:hover { border-color: rgba(217,119,87,0.3); }
+  .workflow-card h4 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+  .workflow-card p { font-size: 13px; line-height: 1.6; color: var(--fg-secondary); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; padding-bottom: 48px;
+  }
+  .skill-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px; transition: border-color 0.3s, background 0.3s;
+  }
+  .skill-card:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+  .skill-card-label {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .skill-card p { font-size: 13px; line-height: 1.6; color: var(--fg-secondary); }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display: grid; gap: 0; padding-bottom: 48px; }
+  .edu-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 8px; padding: 18px 0; border-bottom: 1px solid var(--border);
+  }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-degree { font-size: 15px; font-weight: 600; color: var(--fg); }
+  .edu-school { font-size: 13px; color: var(--fg-secondary); }
+  .edu-year { font-family: var(--mono); font-size: 12px; color: var(--fg-tertiary); }
+
+  /* ── BEYOND ACCOUNTING — HORIZONTAL SCROLL ── */
+  .horiz-section {
+    padding-top: 72px; padding-bottom: 64px;
+    max-width: var(--max-width-wide); margin: 0 auto; padding-left: 32px; padding-right: 32px;
+  }
+  .horiz-section .section-header { padding-top: 0; }
+  .horiz-intro {
+    font-size: 15px; line-height: 1.7; color: var(--fg-secondary);
+    max-width: 580px; margin-bottom: 36px;
+  }
+
+  .horiz-track-wrapper {
+    position: relative;
+    margin-left: -32px; margin-right: -32px;
+    overflow: hidden;
+  }
+  .horiz-track {
+    display: flex; gap: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 8px 32px 24px;
+    -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .horiz-track::-webkit-scrollbar { display: none; }
+
+  .horiz-card {
+    flex: 0 0 280px; scroll-snap-align: start;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 28px; position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    overflow: hidden;
+  }
+  .horiz-card:hover {
+    border-color: var(--accent); transform: translateY(-4px);
+  }
+  .horiz-card-emoji {
+    font-size: 36px; margin-bottom: 16px; display: block;
+    filter: grayscale(0.3);
+  }
+  .horiz-card h3 {
+    font-size: 16px; font-weight: 600; color: var(--fg); margin-bottom: 8px;
+  }
+  .horiz-card p {
+    font-size: 13px; line-height: 1.6; color: var(--fg-secondary);
+  }
+  .horiz-card .card-accent-line {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .horiz-card:hover .card-accent-line { opacity: 1; }
+
+  .scroll-hint {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; color: var(--fg-tertiary);
+    letter-spacing: 0.04em; margin-top: 16px;
+    text-transform: uppercase;
+  }
+  .scroll-hint svg {
+    width: 16px; height: 16px; stroke: var(--fg-tertiary); fill: none; stroke-width: 2;
+    animation: nudge 2s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: var(--max-width-wide); margin: 0 auto;
+    padding: 48px 32px 64px; border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-text { font-size: 13px; color: var(--fg-tertiary); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-size: 13px; font-weight: 500; color: var(--fg-secondary);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero { padding: 56px 20px 48px; min-height: auto; }
+    section, .section-divider { padding: 0 20px; }
+    .horiz-section { padding-left: 20px; padding-right: 20px; }
+    .horiz-track-wrapper { margin-left: -20px; margin-right: -20px; }
+    .horiz-track { padding: 8px 20px 24px; }
+    .nav-inner { padding: 0 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .skills-grid, .workflow-cards { grid-template-columns: 1fr; }
+    .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+    .ai-tools-grid { grid-template-columns: repeat(3, 1fr); }
+    footer { padding: 32px 20px 48px; }
+    .role-header { padding: 14px 16px; }
+    .role-content { padding: 0 16px 20px; }
+    .role-left { flex-wrap: wrap; }
+    .company-header { flex-direction: column; }
+    .about-content { grid-template-columns: 1fr; gap: 24px; }
+    .horiz-card { flex: 0 0 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Ramneek Suri</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#ai">AI</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#beyond">Life</a>
+      <a href="mailto:ramneek100@gmail.com" class="nav-cta">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow reveal-line"><span>CPA &middot; Washington &amp; Ontario</span></div>
+  <h1>
+    <div class="reveal-line"><span>Technical accounting leader</span></div>
+    <div class="reveal-line"><span>with deep experience across</span></div>
+    <div class="reveal-line"><span class="accent-word">high-growth AI, technology,</span></div>
+    <div class="reveal-line"><span class="accent-word">and SaaS companies.</span></div>
+  </h1>
+  <p class="hero-sub fade-up">
+    Advising and auditing clients across complex US GAAP transactions, acquisitions, divestitures, and SEC reporting. Big 4 rigor applied to the fastest-moving environments in tech&mdash;from hyperscalers to pre-IPO startups.
+  </p>
+  <div class="hero-meta fade-up">
+    <span>
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Seattle, WA
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      ramneek100@gmail.com
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +1 206-604-0248
+    </span>
+  </div>
+</div>
+
+<!-- ABOUT / PHILOSOPHY -->
+<section id="about">
+  <div class="section-header fade-up">
+    <span class="section-number">01</span>
+    <h2 class="section-title">What drives me</h2>
+  </div>
+  <div class="about-content">
+    <div class="about-quote fade-up">
+      Passionate about complex problem solving in accounting, where the right answer comes from combining what the codification permits with the real-world business strategy behind the numbers.
+    </div>
+    <div class="about-text fade-up">
+      <p>The work I find most rewarding sits at the intersection of technical accounting and business context. Getting the ASC citation right is table stakes. The real value is understanding why a company structured a deal a certain way, what the business implications are, and how the accounting treatment should reflect that reality. I lean heavily on AI to handle the volume and the repetitive layers of the work so that my time goes toward what actually requires judgment, experience, and a seat at the table.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- AT A GLANCE -->
+<section id="highlights">
+  <div class="section-header fade-up">
+    <span class="section-number">02</span>
+    <h2 class="section-title">At a glance</h2>
+  </div>
+  <div class="highlights-grid stagger-children">
+    <div class="highlight-card">
+      <div class="highlight-number">9+</div>
+      <h3>Years advising &amp; auditing</h3>
+      <p>Big 4 career spanning PwC Deals Advisory and KPMG Audit across SaaS, AI, and hyperscaler clients.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-number">12+</div>
+      <h3>Person teams led</h3>
+      <p>Cross-functional engagements across advisory and audit, spanning large deal transactions, IPO readiness, IPO advisory, and M&amp;A diligence.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-number">$10B+</div>
+      <h3>Overall deal volume</h3>
+      <p>Acquisitions, divestitures, and IPO transactions with deep PPA, revenue timing, and SSP analysis.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-number">US GAAP</div>
+      <h3>Technical accounting depth</h3>
+      <p>Revenue Recognition (ASC 606), Stock-Based Compensation (ASC 718), Business Combinations (ASC 805), Leases (ASC 842), Software Costs (ASC 350-40), EPS (ASC 260), Subsequent Events (ASC 855), Segment Reporting (ASC 280), Credit Losses (ASC 326).</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-number">AI</div>
+      <h3>Builder &amp; early adopter</h3>
+      <p>AI agents for contract review, diligence templating, and LLM-powered workflow automation across engagements.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-number">CPA</div>
+      <h3>Dual-licensed</h3>
+      <p>Active CPA in Washington State (2023) and Ontario (2021). US GAAP, IFRS, and ASPE proficiency.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-up">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Career progression</h2>
+  </div>
+
+  <div class="timeline">
+    <!-- PwC -->
+    <div class="timeline-company fade-up">
+      <div class="company-header">
+        <span class="company-name">PricewaterhouseCoopers LLP</span>
+        <span class="company-dates">Nov 2021 &ndash; Present</span>
+      </div>
+      <div class="company-location">Deals Advisory &middot; Seattle, WA</div>
+
+      <div class="role-item" data-role>
+        <div class="role-header" onclick="toggleRole(this)">
+          <div class="role-left">
+            <span class="role-badge">Senior Manager</span>
+            <span class="role-title">Deals Advisory &mdash; Engagement Lead</span>
+          </div>
+          <div class="role-right">
+            <span class="role-dates-label">Jan 2026 &ndash; Present</span>
+            <svg class="role-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-content">
+            <ul>
+              <li>Orchestrate 12+ person cross-functional teams across IPO, divestiture, and acquisition engagements as the single point of coordination between client management, legal, auditors, and SEC reviewers</li>
+              <li>End-to-end technical accounting authority on S-1 filings, owning footnote disclosures, ASC 855 subsequent events, disclosure checklist reviews, and audit liaison for private-to-public transitions</li>
+              <li>Designed and executed first mock quarterly close processes for pre-IPO SaaS clients, building close calendars, JE templates, reconciliation schedules, and review workflows from scratch</li>
+              <li>Served as financial reporting advisor to high-growth SaaS companies navigating private-to-public transitions, uplifting financials to SEC standards and authoring first-draft filing documents</li>
+              <li>Directed SSP analysis for new product launch scenarios, modeling downstream allocation impact on existing revenue streams to ensure financial readiness before go-live</li>
+              <li>Analyzed performance obligation structures and revenue timing on acquisition deals exceeding $4B, informing purchase price allocation and post-close integration</li>
+              <li>Sourced and closed new engagements through proposal development, client relationship management, and market strategy</li>
+            </ul>
+            <div class="callout-box">
+              <div class="callout-label">Hyperscaler engagement</div>
+              <p>Actively embedded with hyperscaler clients as the on-call senior resource for high-stakes reporting matters, delivering executive-level technical memos and analyses on revenue recognition, stock-based compensation, and complex business combinations under compressed timelines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-item" data-role>
+        <div class="role-header" onclick="toggleRole(this)">
+          <div class="role-left">
+            <span class="role-badge">Manager</span>
+            <span class="role-title">Deals Advisory &mdash; Workstream Lead</span>
+          </div>
+          <div class="role-right">
+            <span class="role-dates-label">Jul 2023 &ndash; Jan 2026</span>
+            <svg class="role-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-content">
+            <ul>
+              <li>Led revenue recognition workstream on a $1B+ billing system migration from Salesforce CPQ to Zuora, leveraging Alteryx to reconcile hundreds of thousands of contracts and validate revenue recognition logic</li>
+              <li>Owned revenue recognition workstreams applying ASC 606 to consumption-based API pricing, bundled SaaS arrangements, and variable consideration with executive-level flux analyses</li>
+              <li>Performed principal-vs-agent analyses for platform and marketplace arrangements under ASC 606, advising on third-party platform revenue models for high-growth technology clients</li>
+              <li>Evaluated AR allowance methodologies and credit impairment under ASC 326 during IPO readiness assessments, advising on expected credit loss model design</li>
+              <li>Drove revenue recognition analysis on a power and utilities divestiture, applying carve-out and ASC 606 guidance to a multi-stream model with executive dashboards</li>
+              <li>Built AI-powered agents automating contract review and diligence templating across ASC 606, cutting manual review time and standardizing deliverable outputs</li>
+              <li>Applied AI tooling to readiness engagements, automating draft report generation and freeing senior capacity for judgment-intensive work</li>
+            </ul>
+            <div class="callout-box">
+              <div class="callout-label">Hyperscaler engagement</div>
+              <p>Embedded with hyperscaler clients delivering technical accounting memos on ASC 606, ASC 718 (stock-based compensation), ASC 350-40 (software development costs), EPS (ASC 260), and pre- and post-close business combinations (ASC 805).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-item" data-role>
+        <div class="role-header" onclick="toggleRole(this)">
+          <div class="role-left">
+            <span class="role-badge">Senior Associate</span>
+            <span class="role-title">Deals Advisory &mdash; Execution &amp; Delivery</span>
+          </div>
+          <div class="role-right">
+            <span class="role-dates-label">Nov 2021 &ndash; Jul 2023</span>
+            <svg class="role-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-content">
+            <ul>
+              <li>Directly owned and co-owned portions of month-end close processes while embedded at client sites, including revenue account reconciliations, deferred revenue roll-forwards, and unbilled receivable analyses</li>
+              <li>Worked alongside Big 4 audit teams on complex revenue and AR transactions, supporting walkthroughs, PBC preparation, and technical accounting analysis across engagement workstreams</li>
+              <li>Built Alteryx workflows for heavy data analysis and reconciliation modeling, automating recurring workbooks and data transformation processes that previously required days of manual spreadsheet work</li>
+              <li>Designed and delivered executive-level presentations and engagement analytics using Power BI and Tableau, replacing static reports with interactive dashboards for client and leadership consumption</li>
+              <li>Supported SEC reporting document setup and configuration in Workiva, structuring S-1 and periodic filing templates with linked data sources, disclosure checklists, and cross-referenced footnotes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPMG -->
+    <div class="timeline-company fade-up">
+      <div class="company-header">
+        <span class="company-name">KPMG LLP</span>
+        <span class="company-dates">May 2017 &ndash; Oct 2021</span>
+      </div>
+      <div class="company-location">Audit &middot; Toronto, Canada</div>
+
+      <div class="role-item" data-role>
+        <div class="role-header" onclick="toggleRole(this)">
+          <div class="role-left">
+            <span class="role-badge">Senior Accountant</span>
+            <span class="role-title">Audit &mdash; Team Lead</span>
+          </div>
+          <div class="role-right">
+            <span class="role-dates-label">Oct 2020 &ndash; Oct 2021</span>
+            <svg class="role-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-content">
+            <ul>
+              <li>Led 5-person audit teams on complex engagements including a $400M+ Canadian public company, managing timelines, reviewing workpapers, and reporting findings to senior leadership</li>
+              <li>Built Power BI dashboards delivering executive-level KPI and variance insights, transitioning clients from static reports to real-time analytics and improving close-cycle visibility</li>
+              <li>Piloted journal entry analytics automation, deploying cloud-based tools to flag high-risk transactions and strengthen audit evidence on a publicly listed client</li>
+              <li>Evaluated internal controls and performed SOX-relevant walkthroughs across payroll, fixed assets, cash and investments, and lease accounting workstreams</li>
+              <li>Performed IFRS 15 revenue recognition analysis for complex industrial clients, evaluating contract terms, performance obligations, and variable consideration across multi-element arrangements</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-item" data-role>
+        <div class="role-header" onclick="toggleRole(this)">
+          <div class="role-left">
+            <span class="role-badge">Staff Accountant</span>
+            <span class="role-title">Audit &mdash; Assurance</span>
+          </div>
+          <div class="role-right">
+            <span class="role-dates-label">May 2017 &ndash; Oct 2020</span>
+            <svg class="role-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-content">
+            <ul>
+              <li>Executed substantive audit procedures across revenue recognition, equity compensation, and consolidation workstreams for technology and consumer clients with $500M&ndash;$5B in revenue</li>
+              <li>Prepared and reviewed year-end audit documentation, supporting engagement leads through planning, fieldwork, and wrap-up phases</li>
+              <li>Gained foundational exposure to IFRS and ASPE across multiple industries, building the technical accounting base that underpins all subsequent advisory work</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- AI & AUTOMATION -->
+<section id="ai">
+  <div class="section-header fade-up">
+    <span class="section-number">04</span>
+    <h2 class="section-title">AI &amp; automation</h2>
+  </div>
+
+  <p class="fade-up" style="font-size:15px; line-height:1.7; color:var(--fg-secondary); max-width:680px; margin-bottom:32px;">
+    Early adopter and builder across the AI tooling landscape. I use these tools daily to automate accounting workflows, accelerate diligence, and build repeatable processes&mdash;not just experiment. Click a tool to learn more.
+  </p>
+
+  <div class="ai-tools-grid stagger-children" id="aiToolsGrid">
+    <div class="ai-tool-chip" data-tool="claude-cowork" onclick="showTool(this)">
+      <div class="ai-tool-name">Claude Cowork</div>
+      <div class="ai-tool-type">AI Platform</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="claude-code" onclick="showTool(this)">
+      <div class="ai-tool-name">Claude Code</div>
+      <div class="ai-tool-type">CLI Agent</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="vscode" onclick="showTool(this)">
+      <div class="ai-tool-name">VS Code</div>
+      <div class="ai-tool-type">IDE</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="replit" onclick="showTool(this)">
+      <div class="ai-tool-name">Replit</div>
+      <div class="ai-tool-type">Cloud Dev</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="harvey" onclick="showTool(this)">
+      <div class="ai-tool-name">Harvey AI</div>
+      <div class="ai-tool-type">Legal AI</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="totiq" onclick="showTool(this)">
+      <div class="ai-tool-name">TotIQ</div>
+      <div class="ai-tool-type">Analytics AI</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="alteryx" onclick="showTool(this)">
+      <div class="ai-tool-name">Alteryx</div>
+      <div class="ai-tool-type">Data Automation</div>
+    </div>
+    <div class="ai-tool-chip" data-tool="powerbi" onclick="showTool(this)">
+      <div class="ai-tool-name">Power BI</div>
+      <div class="ai-tool-type">Visualization</div>
+    </div>
+  </div>
+
+  <div class="ai-detail-panel" id="aiDetailPanel">
+    <p class="ai-detail-placeholder">Select a tool above to see how I use it.</p>
+  </div>
+
+  <div class="workflows-header">Automation workflows I've built</div>
+  <div class="workflow-cards stagger-children">
+    <div class="workflow-card">
+      <h4>Contract review agents</h4>
+      <p>Built AI agents to automate contract review during diligence, templating analysis across ASC 606, tax equity partnerships, and high-risk items&mdash;cutting manual review time and standardizing outputs across engagements.</p>
+    </div>
+    <div class="workflow-card">
+      <h4>Readiness report automation</h4>
+      <p>Applied LLM tooling to IPO readiness engagements, automating draft report generation and freeing senior capacity for judgment-intensive technical accounting work.</p>
+    </div>
+    <div class="workflow-card">
+      <h4>Billing migration reconciliation</h4>
+      <p>Leveraged Alteryx to reconcile hundreds of thousands of contracts during a $1B+ Salesforce CPQ-to-Zuora migration, validating revenue recognition logic and identifying credit memo mismatches.</p>
+    </div>
+    <div class="workflow-card">
+      <h4>Journal entry risk analytics</h4>
+      <p>Deployed cloud-based journal entry analytics to flag high-risk transactions on listed clients, automating what was previously a manual sampling process and improving testing coverage.</p>
+    </div>
+    <div class="workflow-card">
+      <h4>Executive dashboards &amp; KPIs</h4>
+      <p>Built Power BI dashboards delivering real-time executive KPI and variance insights, replacing static PDF reports with interactive, drill-down analytics for close-cycle visibility.</p>
+    </div>
+    <div class="workflow-card">
+      <h4>Document generation pipelines</h4>
+      <p>Built end-to-end document automation workflows using Claude Cowork skills, generating branded deliverables, technical memos, and formatted reports from structured data sources with minimal manual intervention.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-header fade-up">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Technical expertise</h2>
+  </div>
+  <div class="skills-grid stagger-children">
+    <div class="skill-card">
+      <div class="skill-card-label">Revenue Recognition</div>
+      <p>ASC 606 across SaaS, consumption-based, API, and bundled arrangements. SSP stratification, principal vs. agent, contract modifications, variable consideration, carve-out models.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Technical Accounting</div>
+      <p>ASC 718 (SBC), ASC 805/810 (business combinations), ASC 842 (leases), ASC 820/815 (fair value), ASC 350-40 (software costs), ASC 260 (EPS), ASC 855, ASC 280, ASC 326.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Financial Reporting &amp; Close</div>
+      <p>Month-end, quarter-end, and year-end close. Revenue reconciliations, JE review, flux analysis, AR aging, deferred revenue roll-forwards, unbilled receivables, financial statement prep.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">SEC &amp; Regulatory</div>
+      <p>S-1 registration, Reg S-K/S-X, SOX 302/404, SEC comment letter response, mock close and earnings release, 10-K/10-Q drafting, DRS filing support.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Billing &amp; Systems</div>
+      <p>Zuora, Salesforce CPQ, NetSuite (ARM), SAP, Oracle, Hyperion. Billing subledger reconciliation, GL account flow validation, JE automation, UAT test scenarios.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-label">Compliance &amp; Leadership</div>
+      <p>External audit coordination, internal controls, SOX compliance, process documentation. 12+ person team management, mentoring, cross-functional collaboration with FP&A, Tax, Legal, Engineering.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header fade-up">
+    <span class="section-number">06</span>
+    <h2 class="section-title">Education &amp; credentials</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-item fade-up">
+      <div>
+        <div class="edu-degree">Chartered Professional Accountant (CPA)</div>
+        <div class="edu-school">Washington State, 2023 &middot; Ontario, 2021</div>
+      </div>
+      <div class="edu-year">Active</div>
+    </div>
+    <div class="edu-item fade-up">
+      <div>
+        <div class="edu-degree">Master of Accounting</div>
+        <div class="edu-school">York University, Schulich School of Business</div>
+      </div>
+      <div class="edu-year">2019</div>
+    </div>
+    <div class="edu-item fade-up">
+      <div>
+        <div class="edu-degree">Bachelor of Business Administration</div>
+        <div class="edu-school">York University, Schulich School of Business</div>
+      </div>
+      <div class="edu-year">2018</div>
+    </div>
+    <div class="edu-item fade-up">
+      <div>
+        <div class="edu-degree">GAAP Standard Proficiency</div>
+        <div class="edu-school">US GAAP &middot; IFRS &middot; ASPE (Canada)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- BEYOND ACCOUNTING -->
+<div class="horiz-section" id="beyond">
+  <div class="section-header fade-up">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Beyond accounting</h2>
+  </div>
+  <p class="horiz-intro fade-up">
+    The best thinking happens away from spreadsheets. Here's what recharges me and keeps perspective sharp.
+  </p>
+
+  <div class="horiz-track-wrapper">
+    <div class="horiz-track">
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#9968;&#65039;</span>
+        <h3>Hiking</h3>
+        <p>Pacific Northwest trails are home base. Multi-day backcountry trips in the Cascades, Rainier, and the Olympic Peninsula. Nothing resets the mind like elevation gain and no cell service.</p>
+        <div class="card-accent-line"></div>
+      </div>
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#9975;&#65039;</span>
+        <h3>Skiing</h3>
+        <p>Weekends at Crystal, Stevens, and Whistler. The combination of speed, risk assessment, and mountain air is the closest thing to a quarterly close that's actually fun.</p>
+        <div class="card-accent-line"></div>
+      </div>
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#9992;&#65039;</span>
+        <h3>Travel</h3>
+        <p>Exploring new cities and cultures. From Tokyo to Lisbon, every trip is a lesson in how differently the world operates&mdash;and a reminder that context matters as much in life as it does in accounting.</p>
+        <div class="card-accent-line"></div>
+      </div>
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#128218;</span>
+        <h3>Reading</h3>
+        <p>Business strategy, behavioral economics, and the occasional novel. Currently exploring how AI is reshaping professional services and what that means for the next generation of finance leaders.</p>
+        <div class="card-accent-line"></div>
+      </div>
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#127917;</span>
+        <h3>Theatre</h3>
+        <p>Live performances&mdash;from Broadway to local productions. There's something about storytelling in real time that sharpens how you think about presenting complex information to an audience.</p>
+        <div class="card-accent-line"></div>
+      </div>
+      <div class="horiz-card">
+        <span class="horiz-card-emoji">&#9917;</span>
+        <h3>Sports</h3>
+        <p>Playing and watching. Soccer, basketball, cricket&mdash;team sports are a constant reminder that the best outcomes come from trust, communication, and knowing your role on the field.</p>
+        <div class="card-accent-line"></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint fade-up">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    Scroll to explore
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">Ramneek Suri &middot; 2026</span>
+    <div class="footer-links">
+      <a href="mailto:ramneek100@gmail.com">Email</a>
+      <a href="tel:+12066040248">Phone</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Role accordion ──
+function toggleRole(header) {
+  const item = header.parentElement;
+  const wasActive = item.classList.contains('active');
+  item.closest('.timeline-company').querySelectorAll('.role-item').forEach(r => r.classList.remove('active'));
+  if (!wasActive) item.classList.add('active');
+}
+
+// ── AI tool detail panel ──
+const toolData = {
+  'claude-cowork': {
+    title: 'Claude Cowork',
+    text: 'Central hub for multi-step automation workflows that cut hours out of recurring deliverable cycles. Built custom skills that generate branded technical memos, structured reports, and formatted client deliverables from raw inputs, turning what used to be half a day of formatting into a few minutes of review.'
+  },
+  'claude-code': {
+    title: 'Claude Code',
+    text: 'Scraped and organized SEC filings for technical accounting analyses, pulling markdown versions of 10-Ks and proxy statements into structured folders and building a personalized benchmarking tool for peer company comparisons. Automated variance analysis across large GL datasets, generated disclosure checklists from raw filing data, and batch-processed financial statement extracts during M&A diligence. Turned tasks that used to eat up entire weekends into repeatable processes that run in minutes.'
+  },
+  'vscode': {
+    title: 'VS Code',
+    text: 'Built interest rate risk models mapping swap curves, benchmark rates, and exposure schedules from several data sources into one cohesive output. Produced first-cut technical analyses, reconciliation templates, lease accounting schedules, and consolidation workpapers across datasets too large and complex for spreadsheets alone. Cut initial analysis time significantly by handling the heavy data structuring upfront.'
+  },
+  'replit': {
+    title: 'Replit',
+    text: 'Replaced static slide decks and PDFs with interactive dashboards that give leadership teams real-time visibility into what matters. Built dashboards tracking close-cycle progress, revenue waterfall breakdowns, deferred revenue rollforwards, and SBC expense forecasts. Executives can drill into days-to-close, journal entry volume trends, and reconciliation aging on their own instead of waiting for a monthly deck.'
+  },
+  'harvey': {
+    title: 'Harvey AI',
+    text: 'Reviewed hundreds of contracts during M&A diligence, surfacing complex agreement terms, revenue-related provisions, and risk flags that would have taken days to find manually. Specifically leveraged for ASC 606 contract analysis at scale. Built recurring workflows using the workflow builder that automated review processes across engagement teams, cutting diligence cycle times and standardizing output quality.'
+  },
+  'totiq': {
+    title: 'TotIQ',
+    text: 'Analyzed several thousand files across IPO readiness engagements, reducing final report generation cycle times from weeks to several days. Combined questionnaires, PBC documentation, and SME feedback into condensed, actionable deliverables ready for client and auditor review. Eliminated the manual document-by-document review process that was the single biggest bottleneck on readiness timelines.'
+  },
+  'alteryx': {
+    title: 'Alteryx',
+    text: 'Reconciled hundreds of thousands of contracts during a $1B+ billing system migration, catching mismatches and validating revenue recognition logic across subledgers. Compressed weeks of manual spreadsheet work into hours. Built reusable workflows that the broader team adopted for recurring reconciliation and data transformation tasks across other engagements.'
+  },
+  'powerbi': {
+    title: 'Power BI',
+    text: 'Transitioned multiple clients from PDF-based reporting to live, interactive dashboards with drill-down KPI views, variance analysis, and real-time data refresh. Materially improved close-cycle visibility and the speed at which leadership could act on financial data. Dashboards became the standard reporting format adopted by client finance teams going forward.'
+  }
+};
+
+function showTool(chip) {
+  const tool = chip.dataset.tool;
+  const data = toolData[tool];
+  const panel = document.getElementById('aiDetailPanel');
+  document.querySelectorAll('.ai-tool-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  panel.classList.add('has-content');
+  panel.innerHTML = '<div class="ai-detail-title">' + data.title + '</div><div class="ai-detail-text">' + data.text + '</div>';
+}
+
+// ── Scroll-triggered animations ──
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-up, .reveal-line, .stagger-children').forEach(el => observer.observe(el));
+
+  // Stagger the hero reveal lines
+  const heroLines = document.querySelectorAll('.hero .reveal-line');
+  heroLines.forEach((line, i) => {
+    setTimeout(() => line.classList.add('visible'), 200 + i * 120);
+  });
+
+  // Hero fade-ups after lines finish
+  const heroFades = document.querySelectorAll('.hero .fade-up');
+  heroFades.forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 800 + i * 150);
+  });
+}
+
+// Auto-open first role in each company
+document.querySelectorAll('.timeline-company').forEach(company => {
+  const first = company.querySelector('.role-item');
+  if (first) first.classList.add('active');
+});
+</script>
+
+</body>
+</html>
